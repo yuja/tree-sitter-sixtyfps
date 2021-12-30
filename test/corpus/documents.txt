@@ -1,0 +1,43 @@
+================================================================================
+Comments
+================================================================================
+
+// line comment
+
+/*
+ * block comment
+ */
+
+--------------------------------------------------------------------------------
+
+(document
+  (line_comment)
+  (block_comment))
+
+================================================================================
+Components
+================================================================================
+
+Type0 := Base {}
+Type1 := Qualified.Base {}
+global Struct := {}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content)))
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier)
+        (identifier))
+      (element_content)))
+  (global_component
+    id: (identifier)
+    root_element: (element_content)))
