@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/yuja/tree-sitter-sixtyfps/issues"
   },
-  "homepage": "https://github.com/yuja/tree-sitter-sixtyfps#readme"
+  "homepage": "https://github.com/yuja/tree-sitter-sixtyfps#readme",
+  "dependencies": {
+    "nan": "^2.15.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.1"
+  }
 }
