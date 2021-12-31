@@ -137,6 +137,140 @@ Type0 := Base {
             (color_literal)))))))
 
 ================================================================================
+Unary operations
+================================================================================
+
+Type0 := Base {
+    unary_pos: +12;
+    unary_neg: -34;
+    unary_bang: !foo;
+    unary_bang_bang: !!foo;
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          (identifier)
+          (binding_expression
+            (unary_op_expression
+              (number_literal))))
+        (binding
+          (identifier)
+          (binding_expression
+            (unary_op_expression
+              (number_literal))))
+        (binding
+          (identifier)
+          (binding_expression
+            (unary_op_expression
+              (qualified_name
+                (identifier)))))
+        (binding
+          (identifier)
+          (binding_expression
+            (unary_op_expression
+              (unary_op_expression
+                (qualified_name
+                  (identifier))))))))))
+
+================================================================================
+Binary operations
+================================================================================
+
+Type0 := Base {
+    arithmetic: 1 + 2 * 3 - 4 / 5;
+
+    logical: (1 > 2) == (3 > 4) || 5 != 6;
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          (identifier)
+          (binding_expression
+            (binary_expression
+              (binary_expression
+                (number_literal)
+                (binary_expression
+                  (number_literal)
+                  (number_literal)))
+              (binary_expression
+                (number_literal)
+                (number_literal)))))
+        (binding
+          (identifier)
+          (binding_expression
+            (binary_expression
+              (binary_expression
+                (parenthesized_expression
+                  (binary_expression
+                    (number_literal)
+                    (number_literal)))
+                (parenthesized_expression
+                  (binary_expression
+                    (number_literal)
+                    (number_literal))))
+              (binary_expression
+                (number_literal)
+                (number_literal)))))))))
+
+================================================================================
+Ternary operations
+================================================================================
+
+Type0 := Base {
+    ternary: 1 > 2 ? 3 + 4 : 5 * 6;
+    ternary_assoc: 1 ? 2 : 3 ? 4 : 5;
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (conditional_expression
+              condition: (binary_expression
+                lhs: (number_literal)
+                rhs: (number_literal))
+              true_expr: (binary_expression
+                lhs: (number_literal)
+                rhs: (number_literal))
+              false_expr: (binary_expression
+                lhs: (number_literal)
+                rhs: (number_literal)))))
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (conditional_expression
+              condition: (number_literal)
+              true_expr: (number_literal)
+              false_expr: (conditional_expression
+                condition: (number_literal)
+                true_expr: (number_literal)
+                false_expr: (number_literal)))))))))
+
+================================================================================
 Compound expressions
 ================================================================================
 

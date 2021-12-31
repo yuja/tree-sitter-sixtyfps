@@ -2,7 +2,7 @@
 // https://github.com/sixtyfpsui/sixtyfps/
 //   docs/langref.md
 //   sixtyfps_compiler/{lexer.rs,parser.rs,parser/*.rs}
-//                     object_tree.rs
+//                     {expression_tree.rs,object_tree.rs}
 // 75ba29cf2fc593e824718bc2b21036b4ee2430f4
 
 module.exports = grammar({
@@ -22,6 +22,10 @@ module.exports = grammar({
     $._component,
     $._element_content_member,
     $._literal,
+  ],
+
+  precedences: $ => [
+    ['unary', 'mul', 'add', 'equality', 'logical', 'ternary'],
   ],
 
   word: $ => $.identifier,
@@ -107,12 +111,12 @@ module.exports = grammar({
       $.parenthesized_expression,
       // TODO: ?FunctionCallExpression
       // TODO: ?SelfAssignment
-      // TODO: ?ConditionalExpression
+      $.conditional_expression,
       $.qualified_name,
-      // TODO: ?BinaryExpression
+      $.binary_expression,
       // TODO: ?Array
       // TODO: ?ObjectLiteral
-      // TODO: ?UnaryOpExpression
+      $.unary_op_expression,
       // TODO: ?CodeBlock
       // TODO: ?StringTemplate
       // TODO: ?AtImageUrl
@@ -124,6 +128,42 @@ module.exports = grammar({
       $._expression,
       ')',
     ),
+
+    unary_op_expression: $ => prec('unary', seq(
+      field('op', choice('+', '-', '!')),
+      field('sub', $._expression),
+    )),
+
+    binary_expression: $ => choice(
+      prec.left('mul', seq(
+        field('lhs', $._expression),
+        field('op', choice('*', '/')),
+        field('rhs', $._expression),
+      )),
+      prec.left('add', seq(
+        field('lhs', $._expression),
+        field('op', choice('+', '-')),
+        field('rhs', $._expression),
+      )),
+      prec.left('equality', seq(
+        field('lhs', $._expression),
+        field('op', choice('==', '!=', '>=', '<=', '<', '>')),
+        field('rhs', $._expression),
+      )),
+      prec.left('logical', seq(
+        field('lhs', $._expression),
+        field('op', choice('||', '&&')),
+        field('rhs', $._expression),
+      )),
+    ),
+
+    conditional_expression: $ => prec.right('ternary', seq(
+      field('condition', $._expression),
+      '?',
+      field('true_expr', $._expression),
+      ':',
+      field('false_expr', $._expression),
+    )),
 
     code_block: $ => seq(
       '{',
