@@ -21,6 +21,7 @@ module.exports = grammar({
   inline: $ => [
     $._component,
     $._element_content_member,
+    $._statement,
     $._literal,
   ],
 
@@ -106,18 +107,44 @@ module.exports = grammar({
       ),
     ),
 
+    _statement: $ => choice(
+      $.empty_statement,
+      // TODO: if statement (or conditional expression)
+      $.return_statement,
+      $.self_assignment,
+      $._expression_statement,
+    ),
+
+    empty_statement: $ => ';',
+
+    return_statement: $ => seq(
+      'return',
+      optional($._expression),
+      ';',
+    ),
+
+    self_assignment: $ => seq(
+      field('lhs', $._expression),
+      field('op', choice('-=', '+=', '*=', '/=', '=')),
+      field('rhs', $._expression),
+      ';',
+    ),
+
+    _expression_statement: $ => seq(
+      $._expression,
+      ';',
+    ),
+
     _expression: $ => choice(
       $._literal,
       $.parenthesized_expression,
       $.function_call_expression,
-      // TODO: ?SelfAssignment
       $.conditional_expression,
       $.qualified_name,
       $.binary_expression,
       // TODO: ?Array
       // TODO: ?ObjectLiteral
       $.unary_op_expression,
-      // TODO: ?CodeBlock
       // TODO: ?StringTemplate
       // TODO: ?AtImageUrl
       // TODO: ?AtLinearGradient
@@ -179,8 +206,7 @@ module.exports = grammar({
 
     code_block: $ => seq(
       '{',
-      // TODO: *Expression
-      // TODO: *ReturnStatement
+      repeat($._statement),
       '}',
     ),
 

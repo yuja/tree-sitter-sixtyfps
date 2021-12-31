@@ -1,0 +1,64 @@
+================================================================================
+Statements
+================================================================================
+
+Type0 := Base {
+    empty: { ; }
+
+    expr: {
+        foo.bar();
+        baz = 123;
+        baz *= 45.6;
+    }
+
+    just_return: {
+        return;
+    }
+
+    return_value: {
+        return 123;
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          (identifier)
+          (binding_expression
+            (code_block
+              (empty_statement))))
+        (binding
+          (identifier)
+          (binding_expression
+            (code_block
+              (function_call_expression
+                (qualified_name
+                  (identifier)
+                  (identifier))
+                (arguments))
+              (self_assignment
+                (qualified_name
+                  (identifier))
+                (number_literal))
+              (self_assignment
+                (qualified_name
+                  (identifier))
+                (number_literal)))))
+        (binding
+          (identifier)
+          (binding_expression
+            (code_block
+              (return_statement))))
+        (binding
+          (identifier)
+          (binding_expression
+            (code_block
+              (return_statement
+                (number_literal)))))))))
