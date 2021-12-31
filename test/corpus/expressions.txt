@@ -271,6 +271,68 @@ Type0 := Base {
                 false_expr: (number_literal)))))))))
 
 ================================================================================
+Function calls
+================================================================================
+
+Type0 := Base {
+    call0: fun();
+    call2: fun(g(0, 1), 2);
+
+    qualified_call: foo.bar(baz);
+
+    bang_call: !foo();
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (function_call_expression
+              function: (qualified_name
+                (identifier))
+              arguments: (arguments))))
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (function_call_expression
+              function: (qualified_name
+                (identifier))
+              arguments: (arguments
+                (function_call_expression
+                  function: (qualified_name
+                    (identifier))
+                  arguments: (arguments
+                    (number_literal)
+                    (number_literal)))
+                (number_literal)))))
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (function_call_expression
+              function: (qualified_name
+                (identifier)
+                (identifier))
+              arguments: (arguments
+                (qualified_name
+                  (identifier))))))
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (unary_op_expression
+              sub: (function_call_expression
+                function: (qualified_name
+                  (identifier))
+                arguments: (arguments)))))))))
+
+================================================================================
 Compound expressions
 ================================================================================
 

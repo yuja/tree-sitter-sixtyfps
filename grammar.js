@@ -109,7 +109,7 @@ module.exports = grammar({
     _expression: $ => choice(
       $._literal,
       $.parenthesized_expression,
-      // TODO: ?FunctionCallExpression
+      $.function_call_expression,
       // TODO: ?SelfAssignment
       $.conditional_expression,
       $.qualified_name,
@@ -129,7 +129,19 @@ module.exports = grammar({
       ')',
     ),
 
-    unary_op_expression: $ => prec('unary', seq(
+    // It appears any expression can be a function name, which might be unintentional.
+    function_call_expression: $ => seq(
+      field('function', $._expression),
+      field('arguments', $.arguments),
+    ),
+
+    arguments: $ => seq(
+      '(',
+      sep($._expression, ','),
+      ')',
+    ),
+
+    unary_op_expression: $ => prec.right('unary', seq(
       field('op', choice('+', '-', '!')),
       field('sub', $._expression),
     )),
@@ -232,6 +244,10 @@ module.exports = grammar({
     qualified_name: $ => sep1($.identifier, '.'),
   },
 });
+
+function sep(rule, sep) {
+  return optional(sep1(rule, sep));
+}
 
 function sep1(rule, sep) {
   return seq(rule, repeat(seq(sep, rule)));
