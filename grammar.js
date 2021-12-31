@@ -21,6 +21,7 @@ module.exports = grammar({
   inline: $ => [
     $._component,
     $._element_content_member,
+    $._literal,
   ],
 
   word: $ => $.identifier,
@@ -102,6 +103,7 @@ module.exports = grammar({
     ),
 
     _expression: $ => choice(
+      $._literal,
       // TODO: ?Expression
       // TODO: ?FunctionCallExpression
       // TODO: ?SelfAssignment
@@ -136,6 +138,43 @@ module.exports = grammar({
       /[^*]*\*+([^/*][^*]*\*+)*/,
       '/'
     )),
+
+    _literal: $ => choice(
+      $.string_literal,
+      $.number_literal,
+      $.color_literal,
+    ),
+
+    string_literal: $ => seq(
+      '"',
+      repeat(choice(
+        $.escape_sequence,
+        $.string_fragment,
+      )),
+      token.immediate('"'),
+    ),
+
+    escape_sequence: $ => token.immediate(seq(
+      '\\',
+      /./,  // TODO: '{' to start template string
+    )),
+
+    string_fragment: $ => token.immediate(/[^"\\]+/),
+
+    number_literal: $ => seq(
+      token(seq(
+        /[0-9]+/,
+        optional(/\.[0-9]*/),
+      )),
+      optional($.unit),
+    ),
+
+    unit: $ => choice(
+      token.immediate('%'),
+      token.immediate(/[a-zA-Z]+/),
+    ),
+
+    color_literal: $ => /#[a-zA-Z0-9]*/,
 
     // TODO: lex_identifier() accepts c.is_alphanumeric(), which may contain
     // non-ASCII Alpha/Nd/Nl/No character.

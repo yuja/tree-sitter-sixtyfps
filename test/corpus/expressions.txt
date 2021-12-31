@@ -1,0 +1,137 @@
+================================================================================
+String literals
+================================================================================
+
+Type0 := Base {
+    string: "foo";
+    empty_string: "";
+    escaped_string: "foo\"bar";
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          (identifier)
+          (binding_expression
+            (string_literal
+              (string_fragment))))
+        (binding
+          (identifier)
+          (binding_expression
+            (string_literal)))
+        (binding
+          (identifier)
+          (binding_expression
+            (string_literal
+              (string_fragment)
+              (escape_sequence)
+              (string_fragment))))))))
+
+================================================================================
+Number literals
+================================================================================
+
+Type0 := Base {
+    zero: 0;
+    decimal: 1.2;
+    decimal: 12.345;
+    percent: 10%;
+    unit: 9px;
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          (identifier)
+          (binding_expression
+            (number_literal)))
+        (binding
+          (identifier)
+          (binding_expression
+            (number_literal)))
+        (binding
+          (identifier)
+          (binding_expression
+            (number_literal)))
+        (binding
+          (identifier)
+          (binding_expression
+            (number_literal
+              (unit))))
+        (binding
+          (identifier)
+          (binding_expression
+            (number_literal
+              (unit))))))))
+
+================================================================================
+Invalid number literals
+================================================================================
+
+Type0 := Base {
+    separated_unit: 9 px;
+    mixed_unit: 9px%;
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          (identifier)
+          (binding_expression
+            (number_literal)
+            (ERROR
+              (identifier))))
+        (binding
+          (identifier)
+          (binding_expression
+            (number_literal
+              (unit))
+            (ERROR)))))))
+
+================================================================================
+Color literals
+================================================================================
+
+Type0 := Base {
+    short_hex: #01a;
+    full_hex: #DeadBeef;
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          (identifier)
+          (binding_expression
+            (color_literal)))
+        (binding
+          (identifier)
+          (binding_expression
+            (color_literal)))))))
