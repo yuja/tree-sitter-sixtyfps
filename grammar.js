@@ -61,7 +61,7 @@ module.exports = grammar({
     ),
 
     element: $ => seq(
-      field('base_type', $.qualified_type_name),
+      field('base_type', alias($.qualified_name, $.qualified_type_name)),
       $.element_content,
     ),
 
@@ -108,7 +108,7 @@ module.exports = grammar({
       // TODO: ?FunctionCallExpression
       // TODO: ?SelfAssignment
       // TODO: ?ConditionalExpression
-      // TODO: ?QualifiedName
+      $.qualified_name,
       // TODO: ?BinaryExpression
       // TODO: ?Array
       // TODO: ?ObjectLiteral
@@ -183,7 +183,7 @@ module.exports = grammar({
       repeat(/[a-zA-Z0-9_\-]/),
     )),
 
-    qualified_type_name: $ => sep1($.identifier, '.'),
+    qualified_name: $ => sep1($.identifier, '.'),
   },
 });
 

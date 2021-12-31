@@ -34,6 +34,7 @@ Property bindings
 
 Type0 := Base {
     foo: {}
+    bar: baz;
 }
 
 --------------------------------------------------------------------------------
@@ -48,4 +49,9 @@ Type0 := Base {
         (binding
           name: (identifier)
           expr: (binding_expression
-            (code_block)))))))
+            (code_block)))
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (qualified_name
+              (identifier))))))))

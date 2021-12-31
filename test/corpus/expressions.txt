@@ -98,9 +98,9 @@ Type0 := Base {
       (element_content
         (binding
           (identifier)
+          (ERROR)
           (binding_expression
-            (number_literal)
-            (ERROR
+            (qualified_name
               (identifier))))
         (binding
           (identifier)
