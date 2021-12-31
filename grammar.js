@@ -14,6 +14,10 @@ module.exports = grammar({
     $.block_comment,
   ],
 
+  supertypes: $ => [
+    $._expression,
+  ],
+
   inline: $ => [
     $._component,
     $._element_content_member,
@@ -68,7 +72,7 @@ module.exports = grammar({
 
     _element_content_member: $ => choice(
       // TODO: *PropertyDeclaration
-      // TODO: *Binding
+      $.binding,
       // TODO: *CallbackConnection
       // TODO: *CallbackDeclaration
       $.sub_element,
@@ -78,6 +82,46 @@ module.exports = grammar({
       // TODO: *States
       // TODO: *Transitions
       // TODO: ?ChildrenPlaceholder
+    ),
+
+    binding: $ => seq(
+      field('name', $.identifier),
+      ':',
+      field('expr', $.binding_expression),
+    ),
+
+    binding_expression: $ => choice(
+      seq(
+        $.code_block,
+        optional(';'),
+      ),
+      seq(
+        $._expression,
+        ';',
+      ),
+    ),
+
+    _expression: $ => choice(
+      // TODO: ?Expression
+      // TODO: ?FunctionCallExpression
+      // TODO: ?SelfAssignment
+      // TODO: ?ConditionalExpression
+      // TODO: ?QualifiedName
+      // TODO: ?BinaryExpression
+      // TODO: ?Array
+      // TODO: ?ObjectLiteral
+      // TODO: ?UnaryOpExpression
+      // TODO: ?CodeBlock
+      // TODO: ?StringTemplate
+      // TODO: ?AtImageUrl
+      // TODO: ?AtLinearGradient
+    ),
+
+    code_block: $ => seq(
+      '{',
+      // TODO: *Expression
+      // TODO: *ReturnStatement
+      '}',
     ),
 
     line_comment: $ => token(seq(

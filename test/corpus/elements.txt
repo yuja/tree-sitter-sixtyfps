@@ -27,3 +27,25 @@ Type0 := Base {
             base_type: (qualified_type_name
               (identifier))
             (element_content)))))))
+
+================================================================================
+Property bindings
+================================================================================
+
+Type0 := Base {
+    foo: {}
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (code_block)))))))
