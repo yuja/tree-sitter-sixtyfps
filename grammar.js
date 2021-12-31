@@ -47,6 +47,14 @@ module.exports = grammar({
       field('root_element', $.element_content),
     ),
 
+    sub_element: $ => seq(
+      optional(seq(
+        field('id', $.identifier),
+        ':=',
+      )),
+      $.element,
+    ),
+
     element: $ => seq(
       field('base_type', $.qualified_type_name),
       $.element_content,
@@ -63,7 +71,7 @@ module.exports = grammar({
       // TODO: *Binding
       // TODO: *CallbackConnection
       // TODO: *CallbackDeclaration
-      // TODO: *SubElement
+      $.sub_element,
       // TODO: *RepeatedElement
       // TODO: *PropertyAnimation
       // TODO: *TwoWayBinding

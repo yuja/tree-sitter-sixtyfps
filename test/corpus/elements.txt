@@ -1,0 +1,29 @@
+================================================================================
+Sub elements
+================================================================================
+
+Type0 := Base {
+    Bar {}
+    foo := Bar {}
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content
+        (sub_element
+          (element
+            base_type: (qualified_type_name
+              (identifier))
+            (element_content)))
+        (sub_element
+          id: (identifier)
+          (element
+            base_type: (qualified_type_name
+              (identifier))
+            (element_content)))))))
