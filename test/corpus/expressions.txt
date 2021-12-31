@@ -135,3 +135,34 @@ Type0 := Base {
           (identifier)
           (binding_expression
             (color_literal)))))))
+
+================================================================================
+Compound expressions
+================================================================================
+
+Type0 := Base {
+    paren: (foo);
+    paren2: ((0));
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          (identifier)
+          (binding_expression
+            (parenthesized_expression
+              (qualified_name
+                (identifier)))))
+        (binding
+          (identifier)
+          (binding_expression
+            (parenthesized_expression
+              (parenthesized_expression
+                (number_literal)))))))))

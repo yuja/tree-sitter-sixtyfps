@@ -104,7 +104,7 @@ module.exports = grammar({
 
     _expression: $ => choice(
       $._literal,
-      // TODO: ?Expression
+      $.parenthesized_expression,
       // TODO: ?FunctionCallExpression
       // TODO: ?SelfAssignment
       // TODO: ?ConditionalExpression
@@ -117,6 +117,12 @@ module.exports = grammar({
       // TODO: ?StringTemplate
       // TODO: ?AtImageUrl
       // TODO: ?AtLinearGradient
+    ),
+
+    parenthesized_expression: $ => seq(
+      '(',
+      $._expression,
+      ')',
     ),
 
     code_block: $ => seq(
