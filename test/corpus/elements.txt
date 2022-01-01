@@ -35,6 +35,7 @@ Property bindings
 Type0 := Base {
     foo: {}
     bar: baz;
+    two_way <=> bar.baz;
 }
 
 --------------------------------------------------------------------------------
@@ -54,4 +55,9 @@ Type0 := Base {
           name: (identifier)
           expr: (binding_expression
             (qualified_name
-              (identifier))))))))
+              (identifier))))
+        (two_way_binding
+          name: (identifier)
+          expr: (qualified_name
+            (identifier)
+            (identifier)))))))

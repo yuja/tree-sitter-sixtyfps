@@ -84,7 +84,7 @@ module.exports = grammar({
       $.sub_element,
       // TODO: *RepeatedElement
       // TODO: *PropertyAnimation
-      // TODO: *TwoWayBinding
+      $.two_way_binding,
       // TODO: *States
       // TODO: *Transitions
       // TODO: ?ChildrenPlaceholder
@@ -105,6 +105,13 @@ module.exports = grammar({
         $._expression,
         ';',
       ),
+    ),
+
+    two_way_binding: $ => seq(
+      field('name', $.identifier),
+      '<=>',
+      field('expr', $._expression),
+      ';',
     ),
 
     _statement: $ => choice(
