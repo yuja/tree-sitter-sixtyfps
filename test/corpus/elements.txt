@@ -29,6 +29,51 @@ Type0 := Base {
             (element_content)))))))
 
 ================================================================================
+Property declarations
+================================================================================
+
+Type0 := Base {
+    property<int> no_value;
+    property<string> with_value: "hello";
+    property<int> two_way_value <=> bar;
+    property two_way_alias <=> baz;
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content
+        (property_declaration
+          type: (qualified_type_name
+            (identifier))
+          name: (identifier))
+        (property_declaration
+          type: (qualified_type_name
+            (identifier))
+          binding: (binding
+            name: (identifier)
+            expr: (binding_expression
+              (string_literal
+                (string_fragment)))))
+        (property_declaration
+          type: (qualified_type_name
+            (identifier))
+          binding: (two_way_binding
+            name: (identifier)
+            expr: (qualified_name
+              (identifier))))
+        (property_declaration
+          binding: (two_way_binding
+            name: (identifier)
+            expr: (qualified_name
+              (identifier))))))))
+
+================================================================================
 Property bindings
 ================================================================================
 

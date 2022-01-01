@@ -22,6 +22,7 @@ module.exports = grammar({
     $._component,
     $._element_content_member,
     $._statement,
+    $._type,
     $._literal,
   ],
 
@@ -77,7 +78,7 @@ module.exports = grammar({
     ),
 
     _element_content_member: $ => choice(
-      // TODO: *PropertyDeclaration
+      $.property_declaration,
       $.binding,
       // TODO: *CallbackConnection
       // TODO: *CallbackDeclaration
@@ -88,6 +89,29 @@ module.exports = grammar({
       // TODO: *States
       // TODO: *Transitions
       // TODO: ?ChildrenPlaceholder
+    ),
+
+    property_declaration: $ => seq(
+      'property',
+      choice(
+        seq(
+          '<',
+          field('type', $._type),
+          '>',
+          // TODO: better structure
+          choice(
+            seq(
+              field('name', $.identifier),
+              ';',
+            ),
+            field('binding', $.binding),
+            field('binding', $.two_way_binding),
+          ),
+        ),
+        seq(
+          field('binding', $.two_way_binding),
+        ),
+      ),
     ),
 
     binding: $ => seq(
@@ -226,6 +250,12 @@ module.exports = grammar({
       '{',
       repeat($._statement),
       '}',
+    ),
+
+    _type: $ => choice(
+      // TODO: [ ... ]
+      // TODO: { ... }
+      alias($.qualified_name, $.qualified_type_name),
     ),
 
     line_comment: $ => token(seq(
