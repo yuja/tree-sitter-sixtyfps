@@ -62,3 +62,70 @@ Type0 := Base {
             (code_block
               (return_statement
                 (number_literal)))))))))
+
+================================================================================
+If statements
+================================================================================
+
+Type0 := Base {
+    just_if: {
+        if (1) { 2; }
+    }
+
+    else_block: {
+        if (1) { 2; } else { 3; }
+    }
+
+    else_if: {
+        if (1) { 2; } else if (3) { 4; } else if (5) { 6; }
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (code_block
+              (if_statement
+                condition: (parenthesized_expression
+                  (number_literal))
+                true_expr: (code_block
+                  (number_literal))))))
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (code_block
+              (if_statement
+                condition: (parenthesized_expression
+                  (number_literal))
+                true_expr: (code_block
+                  (number_literal))
+                false_expr: (code_block
+                  (number_literal))))))
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (code_block
+              (if_statement
+                condition: (parenthesized_expression
+                  (number_literal))
+                true_expr: (code_block
+                  (number_literal))
+                false_expr: (if_statement
+                  condition: (parenthesized_expression
+                    (number_literal))
+                  true_expr: (code_block
+                    (number_literal))
+                  false_expr: (if_statement
+                    condition: (parenthesized_expression
+                      (number_literal))
+                    true_expr: (code_block
+                      (number_literal))))))))))))

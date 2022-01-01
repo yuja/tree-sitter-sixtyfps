@@ -109,13 +109,24 @@ module.exports = grammar({
 
     _statement: $ => choice(
       $.empty_statement,
-      // TODO: if statement (or conditional expression)
+      $.if_statement,
       $.return_statement,
       $.self_assignment,
       $._expression_statement,
     ),
 
     empty_statement: $ => ';',
+
+    // TODO: naming rule conflicts: SyntaxKind::ConditionalExpression
+    if_statement: $ => seq(
+      'if',
+      field('condition', $.parenthesized_expression),
+      field('true_expr', $.code_block),
+      optional(seq(
+        'else',
+        field('false_expr', choice($.if_statement, $.code_block)),
+      )),
+    ),
 
     return_statement: $ => seq(
       'return',
