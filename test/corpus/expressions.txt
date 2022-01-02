@@ -137,6 +137,47 @@ Type0 := Base {
             (color_literal)))))))
 
 ================================================================================
+@keywords
+================================================================================
+
+Type0 := Base {
+    image_url: @image-url("foo/bar.png");
+
+    linear_gradient: @linear-gradient(123deg, #000 0%, #fff 100%);
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (at_image_url
+              source: (string_literal
+                (string_fragment)))))
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (at_linear_gradient
+              arguments: (at_linear_gradient_arguments
+                (number_literal
+                  (unit))
+                (gradient_stop
+                  color: (color_literal)
+                  position: (number_literal
+                    (unit)))
+                (gradient_stop
+                  color: (color_literal)
+                  position: (number_literal
+                    (unit)))))))))))
+
+================================================================================
 Unary operations
 ================================================================================
 

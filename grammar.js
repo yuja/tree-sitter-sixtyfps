@@ -22,6 +22,7 @@ module.exports = grammar({
     $._component,
     $._element_content_member,
     $._statement,
+    $._at_keyword,
     $._type,
     $._literal,
   ],
@@ -293,8 +294,7 @@ module.exports = grammar({
       // TODO: ?ObjectLiteral
       $.unary_op_expression,
       // TODO: ?StringTemplate
-      // TODO: ?AtImageUrl
-      // TODO: ?AtLinearGradient
+      $._at_keyword,
     ),
 
     parenthesized_expression: $ => seq(
@@ -350,6 +350,37 @@ module.exports = grammar({
       ':',
       field('false_expr', $._expression),
     )),
+
+    _at_keyword: $ => choice(
+      $.at_image_url,
+      $.at_linear_gradient,
+    ),
+
+    at_image_url: $ => seq(
+      '@',
+      choice('image-url', 'image_url'),
+      '(',
+      field('source', $.string_literal),
+      ')',
+    ),
+
+    at_linear_gradient: $ => seq(
+      '@',
+      choice('linear-gradient', 'linear_gradient'),
+      field('arguments', $.at_linear_gradient_arguments),
+    ),
+
+    // TODO: strictness of @keyword arguments
+    at_linear_gradient_arguments: $ => seq(
+      '(',
+      sep(choice($._literal, $.gradient_stop), ','),
+      ')',
+    ),
+
+    gradient_stop: $ => seq(
+      field('color', $.color_literal),
+      field('position', $.number_literal),
+    ),
 
     code_block: $ => seq(
       '{',
