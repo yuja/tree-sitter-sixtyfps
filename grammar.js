@@ -80,6 +80,13 @@ module.exports = grammar({
       $.sub_element,
     ),
 
+    conditional_element: $ => seq(
+      'if',
+      field('condition', $._expression),
+      ':',
+      $.sub_element,
+    ),
+
     element: $ => seq(
       field('base_type', alias($.qualified_name, $.qualified_type_name)),
       $.element_content,
@@ -98,6 +105,7 @@ module.exports = grammar({
       $.callback_connection,
       $.sub_element,
       $.repeated_element,
+      $.conditional_element,
       // TODO: *PropertyAnimation
       $.two_way_binding,
       // TODO: *States

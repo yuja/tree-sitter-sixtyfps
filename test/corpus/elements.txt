@@ -90,6 +90,57 @@ Type0 := Base {
               (element_content))))))))
 
 ================================================================================
+Conditional elements
+================================================================================
+
+Type0 := Base {
+    if bar : Bar {}
+    if (foo ? bar : baz) : Bar {}
+    if true : foo := Foo {}
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (conditional_element
+          (qualified_name
+            (identifier))
+          (sub_element
+            (element
+              (qualified_type_name
+                (identifier))
+              (element_content))))
+        (conditional_element
+          (parenthesized_expression
+            (conditional_expression
+              (qualified_name
+                (identifier))
+              (qualified_name
+                (identifier))
+              (qualified_name
+                (identifier))))
+          (sub_element
+            (element
+              (qualified_type_name
+                (identifier))
+              (element_content))))
+        (conditional_element
+          (qualified_name
+            (identifier))
+          (sub_element
+            (identifier)
+            (element
+              (qualified_type_name
+                (identifier))
+              (element_content))))))))
+
+================================================================================
 Property declarations
 ================================================================================
 
