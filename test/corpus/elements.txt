@@ -29,6 +29,67 @@ Type0 := Base {
             (element_content)))))))
 
 ================================================================================
+Repeated elements
+================================================================================
+
+Type0 := Base {
+    for b in bars: Bar {}
+    for [i] in bars: Bar {}
+    for b[i] in bars: Bar {}
+    for _ in get_foos(): foo := Foo {}
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content
+        (repeated_element
+          model_data: (identifier)
+          model: (qualified_name
+            (identifier))
+          (sub_element
+            (element
+              base_type: (qualified_type_name
+                (identifier))
+              (element_content))))
+        (repeated_element
+          index: (identifier)
+          model: (qualified_name
+            (identifier))
+          (sub_element
+            (element
+              base_type: (qualified_type_name
+                (identifier))
+              (element_content))))
+        (repeated_element
+          model_data: (identifier)
+          index: (identifier)
+          model: (qualified_name
+            (identifier))
+          (sub_element
+            (element
+              base_type: (qualified_type_name
+                (identifier))
+              (element_content))))
+        (repeated_element
+          model_data: (identifier)
+          model: (function_call_expression
+            function: (qualified_name
+              (identifier))
+            arguments: (arguments))
+          (sub_element
+            id: (identifier)
+            (element
+              base_type: (qualified_type_name
+                (identifier))
+              (element_content))))))))
+
+================================================================================
 Property declarations
 ================================================================================
 

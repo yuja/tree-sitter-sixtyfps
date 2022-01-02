@@ -66,6 +66,20 @@ module.exports = grammar({
       $.element,
     ),
 
+    repeated_element: $ => seq(
+      'for',
+      field('model_data', optional($.identifier)),
+      optional(seq(
+        '[',
+        field('index', $.identifier),
+        ']',
+      )),
+      'in',
+      field('model', $._expression),
+      ':',
+      $.sub_element,
+    ),
+
     element: $ => seq(
       field('base_type', alias($.qualified_name, $.qualified_type_name)),
       $.element_content,
@@ -83,7 +97,7 @@ module.exports = grammar({
       $.callback_declaration,
       $.callback_connection,
       $.sub_element,
-      // TODO: *RepeatedElement
+      $.repeated_element,
       // TODO: *PropertyAnimation
       $.two_way_binding,
       // TODO: *States
