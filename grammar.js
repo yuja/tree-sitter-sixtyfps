@@ -239,11 +239,21 @@ module.exports = grammar({
       'children',
     ),
 
+    code_block: $ => seq(
+      '{',
+      repeat($._statement),
+      optional(choice(
+        $.self_assignment,
+        $._expression,
+      )),
+      '}',
+    ),
+
     _statement: $ => choice(
       $.empty_statement,
       $.if_statement,
       $.return_statement,
-      $.self_assignment,
+      $._self_assignment_statement,
       $._expression_statement,
     ),
 
@@ -270,6 +280,10 @@ module.exports = grammar({
       field('lhs', $._expression),
       field('op', choice('-=', '+=', '*=', '/=', '=')),
       field('rhs', $._expression),
+    ),
+
+    _self_assignment_statement: $ => seq(
+      $.self_assignment,
       ';',
     ),
 
@@ -394,12 +408,6 @@ module.exports = grammar({
     gradient_stop: $ => seq(
       field('color', $.color_literal),
       field('position', $.number_literal),
-    ),
-
-    code_block: $ => seq(
-      '{',
-      repeat($._statement),
-      '}',
     ),
 
     struct_declaration: $ => seq(

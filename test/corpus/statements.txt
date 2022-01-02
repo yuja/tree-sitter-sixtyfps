@@ -18,6 +18,9 @@ Type0 := Base {
     return_value: {
         return 123;
     }
+
+    omit_trailing_semicolon_after_expression: { foo; bar }
+    omit_trailing_semicolon_after_assignment: { foo; bar = baz }
 }
 
 --------------------------------------------------------------------------------
@@ -61,7 +64,26 @@ Type0 := Base {
           (binding_expression
             (code_block
               (return_statement
-                (number_literal)))))))))
+                (number_literal)))))
+        (binding
+          (identifier)
+          (binding_expression
+            (code_block
+              (qualified_name
+                (identifier))
+              (qualified_name
+                (identifier)))))
+        (binding
+          (identifier)
+          (binding_expression
+            (code_block
+              (qualified_name
+                (identifier))
+              (self_assignment
+                (qualified_name
+                  (identifier))
+                (qualified_name
+                  (identifier))))))))))
 
 ================================================================================
 If statements
