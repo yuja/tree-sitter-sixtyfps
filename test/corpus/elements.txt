@@ -106,3 +106,54 @@ Type0 := Base {
           expr: (qualified_name
             (identifier)
             (identifier)))))))
+
+================================================================================
+Callback declarations
+================================================================================
+
+Type0 := Base {
+    callback no_arg;
+    callback no_arg_paren();
+    callback args(int, string);
+    callback trailing_comma(int,);
+    callback return_type() -> int;
+    callback two_way_alias <=> foo.bar;
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content
+        (callback_declaration
+          name: (identifier))
+        (callback_declaration
+          name: (identifier)
+          parameters: (callback_declaration_parameters))
+        (callback_declaration
+          name: (identifier)
+          parameters: (callback_declaration_parameters
+            (qualified_type_name
+              (identifier))
+            (qualified_type_name
+              (identifier))))
+        (callback_declaration
+          name: (identifier)
+          parameters: (callback_declaration_parameters
+            (qualified_type_name
+              (identifier))))
+        (callback_declaration
+          name: (identifier)
+          parameters: (callback_declaration_parameters)
+          return_type: (qualified_type_name
+            (identifier)))
+        (callback_declaration
+          binding: (two_way_binding
+            name: (identifier)
+            expr: (qualified_name
+              (identifier)
+              (identifier))))))))

@@ -81,7 +81,7 @@ module.exports = grammar({
       $.property_declaration,
       $.binding,
       // TODO: *CallbackConnection
-      // TODO: *CallbackDeclaration
+      $.callback_declaration,
       $.sub_element,
       // TODO: *RepeatedElement
       // TODO: *PropertyAnimation
@@ -136,6 +136,34 @@ module.exports = grammar({
       '<=>',
       field('expr', $._expression),
       ';',
+    ),
+
+    callback_declaration: $ => seq(
+      'callback',
+      // TODO: better name vs binding structure
+      choice(
+        seq(
+          field('name', $.identifier),
+          optional(seq(
+            field('parameters', $.callback_declaration_parameters),
+            optional(seq(
+              '->',
+              field('return_type', $._type),
+            )),
+          )),
+          ';',
+        ),
+        field('binding', $.two_way_binding),
+      ),
+    ),
+
+    callback_declaration_parameters: $ => seq(
+      '(',
+      optional(seq(
+        sep1($._type, ','),
+        optional(','),
+      )),
+      ')',
     ),
 
     _statement: $ => choice(
