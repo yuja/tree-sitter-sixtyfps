@@ -145,7 +145,7 @@ module.exports = grammar({
       $.property_animation,
       $.two_way_binding,
       $.states,
-      // TODO: *Transitions
+      $.transitions,
       $.children_placeholder,
     ),
 
@@ -239,6 +239,26 @@ module.exports = grammar({
     property_changes: $ => seq(
       '{',
       repeat($.qualified_binding),
+      '}',
+    ),
+
+    transitions: $ => seq(
+      'transitions',
+      '[',
+      repeat($.transition),
+      ']',
+    ),
+
+    transition: $ => seq(
+      field('direction', choice('in', 'out')),
+      field('id', $.identifier),
+      ':',
+      field('animations', $.property_animations),
+    ),
+
+    property_animations: $ => seq(
+      '{',
+      repeat($.property_animation),
       '}',
     ),
 

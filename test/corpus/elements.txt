@@ -327,6 +327,58 @@ Type0 := Base {
                     (identifier)))))))))))
 
 ================================================================================
+Transitions
+================================================================================
+
+Type0 := Base {
+    transitions []
+    transitions [
+        in pressed : {
+            animate x { duration: 1000; }
+        }
+        out pressed : {
+            animate x { duration: 100; }
+        }
+    ]
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content
+        (transitions)
+        (transitions
+          (transition
+            id: (identifier)
+            animations: (property_animations
+              (property_animation
+                property_names: (qualified_property_names
+                  (qualified_name
+                    (identifier)))
+                bindings: (property_bindings
+                  (binding
+                    name: (identifier)
+                    expr: (binding_expression
+                      (number_literal)))))))
+          (transition
+            id: (identifier)
+            animations: (property_animations
+              (property_animation
+                property_names: (qualified_property_names
+                  (qualified_name
+                    (identifier)))
+                bindings: (property_bindings
+                  (binding
+                    name: (identifier)
+                    expr: (binding_expression
+                      (number_literal))))))))))))
+
+================================================================================
 Callback declarations
 ================================================================================
 
