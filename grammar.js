@@ -38,7 +38,7 @@ module.exports = grammar({
       $._component,
       $.exports_list,
       $.import_specifier,
-      // TODO: *StructDeclaration
+      $.struct_declaration,
     )),
 
     // TODO: consolidate export/import node names
@@ -47,7 +47,7 @@ module.exports = grammar({
       choice(
         field('names', $.import_export_identifier_list),
         $._component,
-        // TODO: struct
+        $.struct_declaration,
       ),
     ),
 
@@ -388,10 +388,38 @@ module.exports = grammar({
       '}',
     ),
 
+    struct_declaration: $ => seq(
+      'struct',
+      field('name', $.identifier),
+      ':=',
+      field('fields', $.object_type),
+    ),
+
     _type: $ => choice(
-      // TODO: [ ... ]
-      // TODO: { ... }
+      $.array_type,
+      $.object_type,
       alias($.qualified_name, $.qualified_type_name),
+    ),
+
+    array_type: $ => seq(
+      '[',
+      $._type,
+      ']',
+    ),
+
+    object_type: $ => seq(
+      '{',
+      optional(seq(
+        sep1($.object_type_member, ','),
+        optional(','),
+      )),
+      '}',
+    ),
+
+    object_type_member: $ => seq(
+      field('name', $.identifier),
+      ':',
+      field('type', $._type),
     ),
 
     line_comment: $ => token(seq(

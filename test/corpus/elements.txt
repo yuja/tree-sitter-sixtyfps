@@ -149,6 +149,8 @@ Type0 := Base {
     property<string> with_value: "hello";
     property<int> two_way_value <=> bar;
     property two_way_alias <=> baz;
+
+    property<[{foo: int, bar: string}]> compound_type;
 }
 
 --------------------------------------------------------------------------------
@@ -183,7 +185,19 @@ Type0 := Base {
           binding: (two_way_binding
             name: (identifier)
             expr: (qualified_name
-              (identifier))))))))
+              (identifier))))
+        (property_declaration
+          type: (array_type
+            (object_type
+              (object_type_member
+                name: (identifier)
+                type: (qualified_type_name
+                  (identifier)))
+              (object_type_member
+                name: (identifier)
+                type: (qualified_type_name
+                  (identifier)))))
+          name: (identifier))))))
 
 ================================================================================
 Property bindings

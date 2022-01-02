@@ -21,6 +21,7 @@ Exports
 export { Type1 }
 export { Type2, Type3 as Alias }
 export Type4 := Base {}
+export struct Foo := { foo: bar }
 
 --------------------------------------------------------------------------------
 
@@ -42,7 +43,15 @@ export Type4 := Base {}
       root_element: (element
         base_type: (qualified_type_name
           (identifier))
-        (element_content)))))
+        (element_content))))
+  (exports_list
+    (struct_declaration
+      name: (identifier)
+      fields: (object_type
+        (object_type_member
+          name: (identifier)
+          type: (qualified_type_name
+            (identifier)))))))
 
 ================================================================================
 Imports
@@ -94,3 +103,41 @@ global Struct := {}
   (global_component
     id: (identifier)
     root_element: (element_content)))
+
+================================================================================
+Struct declarations
+================================================================================
+
+struct Foo := {
+    foo: bar,
+    baz: [int],
+    qux: { quux: int },
+}
+
+struct Null := {}
+
+--------------------------------------------------------------------------------
+
+(document
+  (struct_declaration
+    name: (identifier)
+    fields: (object_type
+      (object_type_member
+        name: (identifier)
+        type: (qualified_type_name
+          (identifier)))
+      (object_type_member
+        name: (identifier)
+        type: (array_type
+          (qualified_type_name
+            (identifier))))
+      (object_type_member
+        name: (identifier)
+        type: (object_type
+          (object_type_member
+            name: (identifier)
+            type: (qualified_type_name
+              (identifier)))))))
+  (struct_declaration
+    name: (identifier)
+    fields: (object_type)))
