@@ -137,6 +137,94 @@ Type0 := Base {
             (color_literal)))))))
 
 ================================================================================
+Arrays
+================================================================================
+
+Type0 := Base {
+    array: [1, 2, foo,];
+    empty: [];
+    nested: [[1, 2], []];
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          (identifier)
+          (binding_expression
+            (array
+              (number_literal)
+              (number_literal)
+              (qualified_name
+                (identifier)))))
+        (binding
+          (identifier)
+          (binding_expression
+            (array)))
+        (binding
+          (identifier)
+          (binding_expression
+            (array
+              (array
+                (number_literal)
+                (number_literal))
+              (array))))))))
+
+================================================================================
+Objects
+================================================================================
+
+Type0 := Base {
+    object: {foo: bar, baz: 2};
+    empty: ({});
+    nested: {array: [1, 2], number: 3,};
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          (identifier)
+          (binding_expression
+            (object_literal
+              (object_member
+                (identifier)
+                (qualified_name
+                  (identifier)))
+              (object_member
+                (identifier)
+                (number_literal)))))
+        (binding
+          (identifier)
+          (binding_expression
+            (parenthesized_expression
+              (object_literal))))
+        (binding
+          (identifier)
+          (binding_expression
+            (object_literal
+              (object_member
+                (identifier)
+                (array
+                  (number_literal)
+                  (number_literal)))
+              (object_member
+                (identifier)
+                (number_literal)))))))))
+
+================================================================================
 @keywords
 ================================================================================
 

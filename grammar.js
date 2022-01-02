@@ -29,6 +29,7 @@ module.exports = grammar({
 
   precedences: $ => [
     ['unary', 'mul', 'add', 'equality', 'logical', 'ternary'],
+    [$.object_literal, $.code_block],
   ],
 
   word: $ => $.identifier,
@@ -284,8 +285,8 @@ module.exports = grammar({
       $.conditional_expression,
       $.qualified_name,
       $.binary_expression,
-      // TODO: ?Array
-      // TODO: ?ObjectLiteral
+      $.array,
+      $.object_literal,
       $.unary_op_expression,
       // TODO: ?StringTemplate
       $._at_keyword,
@@ -344,6 +345,25 @@ module.exports = grammar({
       ':',
       field('false_expr', $._expression),
     )),
+
+    array: $ => seq(
+      '[',
+      trailingCommaSep($._expression),
+      ']',
+    ),
+
+    // TODO: drop _literal from node name?
+    object_literal: $ => seq(
+      '{',
+      trailingCommaSep($.object_member),
+      '}',
+    ),
+
+    object_member: $ => seq(
+      field('name', $.identifier),
+      ':',
+      field('expr', $._expression),
+    ),
 
     _at_keyword: $ => choice(
       $.at_image_url,
