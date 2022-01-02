@@ -308,3 +308,22 @@ Type0 := Base {
           parameters: (callback_connection_parameters
             (identifier))
           expr: (code_block))))))
+
+================================================================================
+Children placeholder
+================================================================================
+
+Type0 := Base {
+    @children
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (children_placeholder)))))

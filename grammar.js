@@ -110,7 +110,7 @@ module.exports = grammar({
       $.two_way_binding,
       // TODO: *States
       // TODO: *Transitions
-      // TODO: ?ChildrenPlaceholder
+      $.children_placeholder,
     ),
 
     property_declaration: $ => seq(
@@ -202,6 +202,11 @@ module.exports = grammar({
         optional(','),
       )),
       ')',
+    ),
+
+    children_placeholder: $ => seq(
+      '@',
+      'children',
     ),
 
     _statement: $ => choice(
