@@ -15,6 +15,29 @@ Comments
   (block_comment))
 
 ================================================================================
+Imports
+================================================================================
+
+import { Type1, Type2 as Alias } from "file";
+import "another_file";
+
+--------------------------------------------------------------------------------
+
+(document
+  (import_specifier
+    names: (import_export_identifier_list
+      (import_export_identifier
+        name: (identifier))
+      (import_export_identifier
+        name: (identifier)
+        alias: (identifier)))
+    source: (string_literal
+      (string_fragment)))
+  (import_specifier
+    source: (string_literal
+      (string_fragment))))
+
+================================================================================
 Components
 ================================================================================
 

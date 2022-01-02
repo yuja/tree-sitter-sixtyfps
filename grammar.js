@@ -36,9 +36,33 @@ module.exports = grammar({
     document: $ => repeat(choice(
       $._component,
       // TODO: *ExportsList
-      // TODO: *ImportSpecifier
+      $.import_specifier,
       // TODO: *StructDeclaration
     )),
+
+    import_specifier: $ => seq(
+      'import',
+      optional(seq(
+        field('names', $.import_export_identifier_list),
+        'from',
+      )),
+      field('source', $.string_literal),
+      ';',
+    ),
+
+    import_export_identifier_list: $ => seq(
+      '{',
+      sep($.import_export_identifier, ','),
+      '}',
+    ),
+
+    import_export_identifier: $ => seq(
+      field('name', $.identifier),
+      optional(seq(
+        'as',
+        field('alias', $.identifier),
+      )),
+    ),
 
     _component: $ => choice(
       $.component,
