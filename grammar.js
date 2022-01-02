@@ -142,7 +142,7 @@ module.exports = grammar({
       $.sub_element,
       $.repeated_element,
       $.conditional_element,
-      // TODO: *PropertyAnimation
+      $.property_animation,
       $.two_way_binding,
       // TODO: *States
       // TODO: *Transitions
@@ -194,6 +194,23 @@ module.exports = grammar({
       '<=>',
       field('expr', $._expression),
       ';',
+    ),
+
+    property_animation: $ => seq(
+      'animate',
+      field('property_names', choice(
+        alias('*', $.property_wildcard),
+        $.qualified_property_names,
+      )),
+      field('bindings', $.property_bindings),
+    ),
+
+    qualified_property_names: $ => sep1($.qualified_name, ','),
+
+    property_bindings: $ => seq(
+      '{',
+      repeat($.binding),
+      '}',
     ),
 
     callback_declaration: $ => seq(

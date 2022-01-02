@@ -234,6 +234,50 @@ Type0 := Base {
             (identifier)))))))
 
 ================================================================================
+Property animations
+================================================================================
+
+Type0 := Base {
+    animate x { duration: 1000; }
+    animate foo.x, y {}
+    animate * { duration: 100; }
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content
+        (property_animation
+          property_names: (qualified_property_names
+            (qualified_name
+              (identifier)))
+          bindings: (property_bindings
+            (binding
+              name: (identifier)
+              expr: (binding_expression
+                (number_literal)))))
+        (property_animation
+          property_names: (qualified_property_names
+            (qualified_name
+              (identifier)
+              (identifier))
+            (qualified_name
+              (identifier)))
+          bindings: (property_bindings))
+        (property_animation
+          property_names: (property_wildcard)
+          bindings: (property_bindings
+            (binding
+              name: (identifier)
+              expr: (binding_expression
+                (number_literal)))))))))
+
+================================================================================
 Callback declarations
 ================================================================================
 
