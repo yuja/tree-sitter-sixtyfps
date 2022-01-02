@@ -35,10 +35,20 @@ module.exports = grammar({
   rules: {
     document: $ => repeat(choice(
       $._component,
-      // TODO: *ExportsList
+      $.exports_list,
       $.import_specifier,
       // TODO: *StructDeclaration
     )),
+
+    // TODO: consolidate export/import node names
+    exports_list: $ => seq(
+      'export',
+      choice(
+        field('names', $.import_export_identifier_list),
+        $._component,
+        // TODO: struct
+      ),
+    ),
 
     import_specifier: $ => seq(
       'import',

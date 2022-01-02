@@ -15,6 +15,36 @@ Comments
   (block_comment))
 
 ================================================================================
+Exports
+================================================================================
+
+export { Type1 }
+export { Type2, Type3 as Alias }
+export Type4 := Base {}
+
+--------------------------------------------------------------------------------
+
+(document
+  (exports_list
+    names: (import_export_identifier_list
+      (import_export_identifier
+        name: (identifier))))
+  (exports_list
+    names: (import_export_identifier_list
+      (import_export_identifier
+        name: (identifier))
+      (import_export_identifier
+        name: (identifier)
+        alias: (identifier))))
+  (exports_list
+    (component
+      id: (identifier)
+      root_element: (element
+        base_type: (qualified_type_name
+          (identifier))
+        (element_content)))))
+
+================================================================================
 Imports
 ================================================================================
 
