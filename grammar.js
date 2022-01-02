@@ -80,8 +80,8 @@ module.exports = grammar({
     _element_content_member: $ => choice(
       $.property_declaration,
       $.binding,
-      // TODO: *CallbackConnection
       $.callback_declaration,
+      $.callback_connection,
       $.sub_element,
       // TODO: *RepeatedElement
       // TODO: *PropertyAnimation
@@ -161,6 +161,22 @@ module.exports = grammar({
       '(',
       optional(seq(
         sep1($._type, ','),
+        optional(','),
+      )),
+      ')',
+    ),
+
+    callback_connection: $ => seq(
+      field('name', $.identifier),
+      optional(field('parameters', $.callback_connection_parameters)),
+      '=>',
+      field('expr', $.code_block),
+    ),
+
+    callback_connection_parameters: $ => seq(
+      '(',
+      optional(seq(
+        sep1($.identifier, ','),
         optional(','),
       )),
       ')',

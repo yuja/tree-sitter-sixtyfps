@@ -157,3 +157,42 @@ Type0 := Base {
             expr: (qualified_name
               (identifier)
               (identifier))))))))
+
+================================================================================
+Callback connections
+================================================================================
+
+Type0 := Base {
+    no_arg => {}
+    no_arg_paren() => {}
+    args(x, y) => {}
+    args(x,) => {}
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content
+        (callback_connection
+          name: (identifier)
+          expr: (code_block))
+        (callback_connection
+          name: (identifier)
+          parameters: (callback_connection_parameters)
+          expr: (code_block))
+        (callback_connection
+          name: (identifier)
+          parameters: (callback_connection_parameters
+            (identifier)
+            (identifier))
+          expr: (code_block))
+        (callback_connection
+          name: (identifier)
+          parameters: (callback_connection_parameters
+            (identifier))
+          expr: (code_block))))))
