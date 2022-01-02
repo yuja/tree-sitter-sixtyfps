@@ -216,10 +216,7 @@ module.exports = grammar({
 
     callback_declaration_parameters: $ => seq(
       '(',
-      optional(seq(
-        sep1($._type, ','),
-        optional(','),
-      )),
+      trailingCommaSep($._type),
       ')',
     ),
 
@@ -232,10 +229,7 @@ module.exports = grammar({
 
     callback_connection_parameters: $ => seq(
       '(',
-      optional(seq(
-        sep1($.identifier, ','),
-        optional(','),
-      )),
+      trailingCommaSep($.identifier),
       ')',
     ),
 
@@ -409,10 +403,7 @@ module.exports = grammar({
 
     object_type: $ => seq(
       '{',
-      optional(seq(
-        sep1($.object_type_member, ','),
-        optional(','),
-      )),
+      trailingCommaSep($.object_type_member),
       '}',
     ),
 
@@ -489,4 +480,11 @@ function sep(rule, sep) {
 
 function sep1(rule, sep) {
   return seq(rule, repeat(seq(sep, rule)));
+}
+
+function trailingCommaSep(rule) {
+  return optional(seq(
+    sep1(rule, ','),
+    optional(','),
+  ));
 }
