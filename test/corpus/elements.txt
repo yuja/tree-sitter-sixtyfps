@@ -278,6 +278,55 @@ Type0 := Base {
                 (number_literal)))))))))
 
 ================================================================================
+States
+================================================================================
+
+Type0 := Base {
+    states []
+    states [
+        foo when bar : {
+            baz.x: y;
+        }
+        qux : {
+            x: y;
+        }
+    ]
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    id: (identifier)
+    root_element: (element
+      base_type: (qualified_type_name
+        (identifier))
+      (element_content
+        (states)
+        (states
+          (state
+            id: (identifier)
+            condition: (qualified_name
+              (identifier))
+            property_changes: (property_changes
+              (qualified_binding
+                name: (qualified_name
+                  (identifier)
+                  (identifier))
+                expr: (binding_expression
+                  (qualified_name
+                    (identifier))))))
+          (state
+            id: (identifier)
+            property_changes: (property_changes
+              (qualified_binding
+                name: (qualified_name
+                  (identifier))
+                expr: (binding_expression
+                  (qualified_name
+                    (identifier)))))))))))
+
+================================================================================
 Callback declarations
 ================================================================================
 

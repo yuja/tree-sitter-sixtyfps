@@ -144,7 +144,7 @@ module.exports = grammar({
       $.conditional_element,
       $.property_animation,
       $.two_way_binding,
-      // TODO: *States
+      $.states,
       // TODO: *Transitions
       $.children_placeholder,
     ),
@@ -174,6 +174,12 @@ module.exports = grammar({
 
     binding: $ => seq(
       field('name', $.identifier),
+      ':',
+      field('expr', $.binding_expression),
+    ),
+
+    qualified_binding: $ => seq(
+      field('name', $.qualified_name),
       ':',
       field('expr', $.binding_expression),
     ),
@@ -210,6 +216,29 @@ module.exports = grammar({
     property_bindings: $ => seq(
       '{',
       repeat($.binding),
+      '}',
+    ),
+
+    states: $ => seq(
+      'states',
+      '[',
+      repeat($.state),
+      ']',
+    ),
+
+    state: $ => seq(
+      field('id', $.identifier),
+      optional(seq(
+        'when',
+        field('condition', $._expression),
+      )),
+      ':',
+      field('property_changes', $.property_changes),
+    ),
+
+    property_changes: $ => seq(
+      '{',
+      repeat($.qualified_binding),
       '}',
     ),
 
