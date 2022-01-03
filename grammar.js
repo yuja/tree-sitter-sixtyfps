@@ -390,7 +390,7 @@ module.exports = grammar({
 
     arguments: $ => seq(
       '(',
-      sep($._expression, ','),
+      trailingCommaSep($._expression),
       ')',
     ),
 

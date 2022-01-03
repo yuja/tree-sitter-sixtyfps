@@ -409,6 +409,8 @@ Type0 := Base {
 
     qualified_call: foo.bar(baz);
 
+    trailing_comma: fun(0,);
+
     bang_call: !foo();
 }
 
@@ -452,6 +454,14 @@ Type0 := Base {
               arguments: (arguments
                 (qualified_name
                   (identifier))))))
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (function_call_expression
+              function: (qualified_name
+                (identifier))
+              arguments: (arguments
+                (number_literal)))))
         (binding
           name: (identifier)
           expr: (binding_expression
