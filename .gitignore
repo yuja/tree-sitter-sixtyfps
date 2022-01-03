@@ -4,6 +4,7 @@
 
 /Cargo.lock
 /build/
+/examples/sixtyfps
 /node_modules/
 /package-lock.json
 /target/
