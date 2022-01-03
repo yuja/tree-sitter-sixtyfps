@@ -372,7 +372,6 @@ module.exports = grammar({
       $.array,
       $.object_literal,
       $.unary_op_expression,
-      // TODO: ?StringTemplate
       $._at_keyword,
     ),
 
@@ -526,6 +525,7 @@ module.exports = grammar({
       '"',
       repeat(choice(
         $.escape_sequence,
+        $.template_substitution,
         $.string_fragment,
       )),
       token.immediate('"'),
@@ -533,8 +533,14 @@ module.exports = grammar({
 
     escape_sequence: $ => token.immediate(seq(
       '\\',
-      /./,  // TODO: '{' to start template string
+      /./,  // TODO: consume escaped sequence to highlight it
     )),
+
+    template_substitution: $ => seq(
+      '\\{',
+      $._expression,
+      '}',
+    ),
 
     string_fragment: $ => token.immediate(/[^"\\]+/),
 

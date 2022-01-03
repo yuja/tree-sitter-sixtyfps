@@ -6,6 +6,7 @@ Type0 := Base {
     string: "foo";
     empty_string: "";
     escaped_string: "foo\"bar";
+    template_string: "foo\{1 + 2}bar\{"\{nested}"}";
 }
 
 --------------------------------------------------------------------------------
@@ -32,7 +33,22 @@ Type0 := Base {
             (string_literal
               (string_fragment)
               (escape_sequence)
-              (string_fragment))))))))
+              (string_fragment))))
+        (binding
+          (identifier)
+          (binding_expression
+            (string_literal
+              (string_fragment)
+              (template_substitution
+                (binary_expression
+                  (number_literal)
+                  (number_literal)))
+              (string_fragment)
+              (template_substitution
+                (string_literal
+                  (template_substitution
+                    (qualified_name
+                      (identifier))))))))))))
 
 ================================================================================
 Number literals
