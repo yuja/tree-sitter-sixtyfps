@@ -471,12 +471,12 @@ module.exports = grammar({
     // TODO: strictness of @keyword arguments
     at_linear_gradient_arguments: $ => seq(
       '(',
-      sep(choice($._literal, $.gradient_stop), ','),
+      trailingCommaSep(choice($._expression, $.gradient_stop)),
       ')',
     ),
 
     gradient_stop: $ => seq(
-      field('color', $.color_literal),
+      field('color', choice($.color_literal, $.qualified_name)),
       field('position', $.number_literal),
     ),
 

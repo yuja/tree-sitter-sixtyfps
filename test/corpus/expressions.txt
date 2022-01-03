@@ -232,6 +232,7 @@ Type0 := Base {
     image_url: @image-url("foo/bar.png");
 
     linear_gradient: @linear-gradient(123deg, #000 0%, #fff 100%);
+    linear_gradient2: @linear-gradient(123deg, foo.bar, transparent 100%);
 }
 
 --------------------------------------------------------------------------------
@@ -262,6 +263,21 @@ Type0 := Base {
                     (unit)))
                 (gradient_stop
                   color: (color_literal)
+                  position: (number_literal
+                    (unit)))))))
+        (binding
+          name: (identifier)
+          expr: (binding_expression
+            (at_linear_gradient
+              arguments: (at_linear_gradient_arguments
+                (number_literal
+                  (unit))
+                (qualified_name
+                  (identifier)
+                  (identifier))
+                (gradient_stop
+                  color: (qualified_name
+                    (identifier))
                   position: (number_literal
                     (unit)))))))))))
 
