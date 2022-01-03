@@ -8,6 +8,10 @@
 module.exports = grammar({
   name: 'sixtyfps',
 
+  externals: $ => [
+    $.block_comment,
+  ],
+
   extras: $ => [
     /\p{space}/,
     $.line_comment,
@@ -510,14 +514,6 @@ module.exports = grammar({
     line_comment: $ => token(seq(
       '//',
       /.*/,
-    )),
-
-    // TODO: nested comment
-    // https://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment/36328890#36328890
-    block_comment: $ => token(seq(
-      '/*',
-      /[^*]*\*+([^/*][^*]*\*+)*/,
-      '/'
     )),
 
     _literal: $ => choice(

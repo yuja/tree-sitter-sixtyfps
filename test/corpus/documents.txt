@@ -8,11 +8,62 @@ Comments
  * block comment
  */
 
+/* nested /* block */ comment */
+
+/*/**/*/
+
+/**/
+
+/*/ */
+
+Type0 := Base {
+    div: 1 /*comment*// 2;
+    str: "foo /* bar" + "*/ baz";
+}
+
 --------------------------------------------------------------------------------
 
 (document
   (line_comment)
-  (block_comment))
+  (block_comment)
+  (block_comment)
+  (block_comment)
+  (block_comment)
+  (block_comment)
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          (identifier)
+          (binding_expression
+            (binary_expression
+              (number_literal)
+              (block_comment)
+              (number_literal))))
+        (binding
+          (identifier)
+          (binding_expression
+            (binary_expression
+              (string_literal
+                (string_fragment))
+              (string_literal
+                (string_fragment)))))))))
+
+================================================================================
+Invalid comments
+================================================================================
+
+/*/
+
+/*/*/*/
+
+--------------------------------------------------------------------------------
+
+(document
+  (ERROR))
 
 ================================================================================
 Exports
