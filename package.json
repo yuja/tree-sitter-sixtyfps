@@ -25,5 +25,19 @@
   },
   "devDependencies": {
     "tree-sitter-cli": "^0.20.1"
-  }
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.60",
+      "file-types": [
+        "60"
+      ],
+      "highlights": [
+        "queries/highlights.scm"
+      ],
+      "locals": [
+        "queries/locals.scm"
+      ]
+    }
+  ]
 }

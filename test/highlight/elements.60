@@ -1,0 +1,24 @@
+MyRect := Rectangle {
+    property <image> icon;
+    // <- keyword    ^ property
+    //       ^ punctuation.bracket
+    //             ^ punctuation.bracket
+
+    property <string> text1 <=> foo.text;
+    //                ^ property
+
+    property <string> text2: "foo";
+    //                ^ property
+
+    callback fun1;
+    // <- keyword
+    //       ^ function
+
+    callback fun2 <=> foo.fun;
+    //       ^ function
+
+    fun3(param) => {
+    // <- function
+    //   ^ variable.parameter
+    }
+}
