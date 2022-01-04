@@ -2387,6 +2387,10 @@
         {
           "type": "SYMBOL",
           "name": "color_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bool_literal"
         }
       ]
     },
@@ -2530,6 +2534,31 @@
       "type": "PATTERN",
       "value": "#[a-zA-Z0-9]*"
     },
+    "bool_literal": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "true"
+        },
+        {
+          "type": "STRING",
+          "value": "false"
+        }
+      ]
+    },
+    "self": {
+      "type": "STRING",
+      "value": "self"
+    },
+    "parent": {
+      "type": "STRING",
+      "value": "parent"
+    },
+    "root": {
+      "type": "STRING",
+      "value": "root"
+    },
     "identifier": {
       "type": "TOKEN",
       "content": {
@@ -2553,8 +2582,25 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "self"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "parent"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "root"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          ]
         },
         {
           "type": "REPEAT",
@@ -2566,8 +2612,25 @@
                 "value": "."
               },
               {
-                "type": "SYMBOL",
-                "name": "identifier"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "self"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "parent"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "root"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  }
+                ]
               }
             ]
           }
