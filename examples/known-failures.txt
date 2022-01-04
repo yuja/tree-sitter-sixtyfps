@@ -2,6 +2,7 @@ sixtyfps/sixtyfps_compiler/tests/syntax/basic/array.60
 sixtyfps/sixtyfps_compiler/tests/syntax/basic/for.60
 sixtyfps/sixtyfps_compiler/tests/syntax/basic/linear-gradient.60
 sixtyfps/sixtyfps_compiler/tests/syntax/basic/parse_error.60
+sixtyfps/sixtyfps_compiler/tests/syntax/basic/sub_elements.60
 sixtyfps/sixtyfps_compiler/tests/syntax/imports/import_parse_error1.60
 sixtyfps/sixtyfps_compiler/tests/syntax/imports/import_parse_error2.60
 sixtyfps/sixtyfps_compiler/tests/syntax/imports/import_parse_error3.60

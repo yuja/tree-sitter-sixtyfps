@@ -158,6 +158,9 @@ SpecialIdLookup literals
 
 Type0 := Base {
     bool_literals: true || false;
+    self_ref: self.x;
+    parent_ref: parent.x;
+    root_ref: root.x;
 }
 
 --------------------------------------------------------------------------------
@@ -174,7 +177,25 @@ Type0 := Base {
           (binding_expression
             (binary_expression
               (bool_literal)
-              (bool_literal))))))))
+              (bool_literal))))
+        (binding
+          (identifier)
+          (binding_expression
+            (qualified_name
+              (self)
+              (identifier))))
+        (binding
+          (identifier)
+          (binding_expression
+            (qualified_name
+              (parent)
+              (identifier))))
+        (binding
+          (identifier)
+          (binding_expression
+            (qualified_name
+              (root)
+              (identifier))))))))
 
 ================================================================================
 Arrays

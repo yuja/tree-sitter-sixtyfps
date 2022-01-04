@@ -58,14 +58,15 @@
   (identifier) @type
   (#match? @type "^[A-Z]"))  ; assume uppercase names are types
 
-; TODO: maybe introduce dedicated nodes for these identifiers?
-((identifier) @variable.builtin
-  (#eq? @variable.builtin "self"))
-((identifier) @variable.builtin
-  (#eq? @variable.builtin "parent"))
 (identifier) @variable
 
 ; Literals
+
+[
+  (self)
+  (parent)
+  (root)
+] @variable.builtin
 
 (line_comment) @comment
 (block_comment) @comment
