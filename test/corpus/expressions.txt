@@ -153,6 +153,30 @@ Type0 := Base {
             (color_literal)))))))
 
 ================================================================================
+SpecialIdLookup literals
+================================================================================
+
+Type0 := Base {
+    bool_literals: true || false;
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (component
+    (identifier)
+    (element
+      (qualified_type_name
+        (identifier))
+      (element_content
+        (binding
+          (identifier)
+          (binding_expression
+            (binary_expression
+              (bool_literal)
+              (bool_literal))))))))
+
+================================================================================
 Arrays
 ================================================================================
 

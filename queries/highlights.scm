@@ -63,10 +63,6 @@
   (#eq? @variable.builtin "self"))
 ((identifier) @variable.builtin
   (#eq? @variable.builtin "parent"))
-((identifier) @constant.builtin
-  (#eq? @constant.builtin "true"))
-((identifier) @constant.builtin
-  (#eq? @constant.builtin "false"))
 (identifier) @variable
 
 ; Literals
@@ -79,6 +75,8 @@
 (number_literal) @number
 
 (color_literal) @string.special
+
+(bool_literal) @constant.builtin
 
 ; Tokens
 

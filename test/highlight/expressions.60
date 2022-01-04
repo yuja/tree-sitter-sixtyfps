@@ -7,6 +7,10 @@ MyRect := Rectangle {
     //                      ^ function.builtin
     //                                 ^ string
 
+    property <bool> b: true || false;
+    //                 ^ constant.builtin
+    //                         ^ constant.builtin
+
     property <int> xxx: self.x;
     //                  ^ variable.builtin
 

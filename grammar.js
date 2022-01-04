@@ -519,6 +519,7 @@ module.exports = grammar({
       $.string_literal,
       $.number_literal,
       $.color_literal,
+      $.bool_literal,
     ),
 
     string_literal: $ => seq(
@@ -558,6 +559,11 @@ module.exports = grammar({
     ),
 
     color_literal: $ => /#[a-zA-Z0-9]*/,
+
+    bool_literal: $ => choice(
+      'true',
+      'false',
+    ),
 
     // TODO: lex_identifier() accepts c.is_alphanumeric(), which may contain
     // non-ASCII Alpha/Nd/Nl/No character.
