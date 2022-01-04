@@ -519,6 +519,7 @@ module.exports = grammar({
       $.string_literal,
       $.number_literal,
       $.color_literal,
+      $.bool_literal,
     ),
 
     string_literal: $ => seq(
@@ -559,6 +560,15 @@ module.exports = grammar({
 
     color_literal: $ => /#[a-zA-Z0-9]*/,
 
+    bool_literal: $ => choice(
+      'true',
+      'false',
+    ),
+
+    self: $ => 'self',
+    parent: $ => 'parent',
+    root: $ => 'root',  // isn't a special id, but reserved
+
     // TODO: lex_identifier() accepts c.is_alphanumeric(), which may contain
     // non-ASCII Alpha/Nd/Nl/No character.
     identifier: $ => token(seq(
@@ -566,7 +576,13 @@ module.exports = grammar({
       repeat(/[a-zA-Z0-9_\-]/),
     )),
 
-    qualified_name: $ => sep1($.identifier, '.'),
+    // TODO: restrict use of reserved identifiers in type/property position?
+    qualified_name: $ => sep1(choice(
+      $.self,
+      $.parent,
+      $.root,
+      $.identifier,
+    ), '.'),
   },
 });
 

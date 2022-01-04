@@ -131,8 +131,7 @@ Type0 := Base {
                 (identifier))
               (element_content))))
         (conditional_element
-          (qualified_name
-            (identifier))
+          (bool_literal)
           (sub_element
             (identifier)
             (element

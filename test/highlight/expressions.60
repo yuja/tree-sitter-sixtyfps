@@ -1,0 +1,21 @@
+MyRect := Rectangle {
+    property <string> s: "foo \{x}";
+    //                    ^ string
+    //                          ^ variable
+
+    property <image> icon: @image-url("foo.png");
+    //                      ^ function.builtin
+    //                                 ^ string
+
+    property <bool> b: true || false;
+    //                 ^ constant.builtin
+    //                         ^ constant.builtin
+
+    property <int> xxx: self.x;
+    //                  ^ variable.builtin
+
+    Rectangle {
+        property <int> xxx: parent.x;
+        //                  ^ variable.builtin
+    }
+}
