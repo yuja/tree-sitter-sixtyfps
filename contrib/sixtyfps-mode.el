@@ -1,12 +1,13 @@
 ;;; sityfps-mode.el --- Major mode for editing SixtyFPS UI -*- lexical-binding: t; -*-
 
 ;; Author: Yuya Nishihara <yuya@tcha.org>
-;; Package-Requires: ((emacs "26.1") (tree-sitter "0.16.1"))
+;; Package-Requires: ((emacs "26.1") (tree-sitter "0.16.1") (tree-sitter-indent "0.3"))
 
 ;;; Code:
 
 (require 'tree-sitter)
 (require 'tree-sitter-hl)
+(require 'tree-sitter-indent)
 
 (defconst sixtyfps-mode--tree-sitter-patterns
   [
@@ -165,6 +166,58 @@
    ;(identifier) @variable
    ])
 
+(defcustom sixtyfps-indent-offset 4
+  "Indent offset for SixtyFPS major mode."
+  :type 'integer
+  :group 'sixtyfps)
+
+;; Empty line won't be indented properly, but let's start with structurally correct rule.
+;; https://codeberg.org/FelipeLema/tree-sitter-indent.el/issues/8
+(defconst sixtyfps-mode--indent-scopes
+  '((indent-all
+     ;; these nodes are always indented
+     . ())
+    (indent-rest
+     ;; if parent node is one of this and node is not first -> indent
+     . (self_assignment
+        conditional_expression
+        binary_expression))
+    (indent-body
+     ;; if parent node is one of this and current node is in middle -> indent
+     . (import_export_identifier_list
+        element_content
+        states
+        transitions
+        property_animations
+        property_bindings
+        property_changes
+        code_block
+        array
+        array_type
+        object_literal
+        object_type))
+    (paren-indent
+     ;; if parent node is one of these -> indent to paren opener
+     . (callback_connection_parameters
+        callback_declaration_parameters
+        arguments
+        at_linear_gradient_arguments
+        parenthesized_expression))
+    (align-char-to
+     ;; chaining char -> node types we move parentwise to find the first chaining char
+     . ())
+    (aligned-siblings
+     ;; siblings (nodes with same parent) should be aligned to the first child
+     . ())
+    (multi-line-text
+     ;; if node is one of this, then don't modify the indent
+     ;; this is basically a peaceful way out by saying "this looks like something
+     ;; that cannot be indented using AST, so best I leave it as-is"
+     . ())
+    (outdent
+     ;; these nodes always outdent (1 shift in opposite direction)
+     . ())))
+
 (defvar sixtyfps-mode-map
   (let ((map (make-sparse-keymap)))
     map)
@@ -188,6 +241,10 @@
     (setq font-lock-defaults '(nil)))
 
   (setq-local tree-sitter-hl-default-patterns sixtyfps-mode--tree-sitter-patterns)
+
+  (setq-local indent-line-function #'tree-sitter-indent-line)
+  (setq-local tree-sitter-indent-offset sixtyfps-indent-offset)
+  (setq-local tree-sitter-indent-current-scopes sixtyfps-mode--indent-scopes)
 
   (tree-sitter-hl-mode))
 
