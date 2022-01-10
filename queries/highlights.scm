@@ -128,6 +128,7 @@
   "animate"
   "as"
   "callback"
+  "else"
   "export"
   "for"
   "from"
