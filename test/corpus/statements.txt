@@ -42,17 +42,15 @@ Type0 := Base {
           (binding_expression
             (code_block
               (function_call_expression
-                (qualified_name
+                (member_access
                   (identifier)
                   (identifier))
                 (arguments))
               (self_assignment
-                (qualified_name
-                  (identifier))
+                (identifier)
                 (number_literal))
               (self_assignment
-                (qualified_name
-                  (identifier))
+                (identifier)
                 (number_literal)))))
         (binding
           (identifier)
@@ -69,21 +67,16 @@ Type0 := Base {
           (identifier)
           (binding_expression
             (code_block
-              (qualified_name
-                (identifier))
-              (qualified_name
-                (identifier)))))
+              (identifier)
+              (identifier))))
         (binding
           (identifier)
           (binding_expression
             (code_block
-              (qualified_name
-                (identifier))
+              (identifier)
               (self_assignment
-                (qualified_name
-                  (identifier))
-                (qualified_name
-                  (identifier))))))))))
+                (identifier)
+                (identifier)))))))))
 
 ================================================================================
 If statements

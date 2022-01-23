@@ -50,8 +50,7 @@ Type0 := Base {
       (element_content
         (repeated_element
           model_data: (identifier)
-          model: (qualified_name
-            (identifier))
+          model: (identifier)
           (sub_element
             (element
               base_type: (qualified_type_name
@@ -59,8 +58,7 @@ Type0 := Base {
               (element_content))))
         (repeated_element
           index: (identifier)
-          model: (qualified_name
-            (identifier))
+          model: (identifier)
           (sub_element
             (element
               base_type: (qualified_type_name
@@ -69,8 +67,7 @@ Type0 := Base {
         (repeated_element
           model_data: (identifier)
           index: (identifier)
-          model: (qualified_name
-            (identifier))
+          model: (identifier)
           (sub_element
             (element
               base_type: (qualified_type_name
@@ -79,8 +76,7 @@ Type0 := Base {
         (repeated_element
           model_data: (identifier)
           model: (function_call_expression
-            function: (qualified_name
-              (identifier))
+            function: (identifier)
             arguments: (arguments))
           (sub_element
             id: (identifier)
@@ -109,8 +105,7 @@ Type0 := Base {
         (identifier))
       (element_content
         (conditional_element
-          (qualified_name
-            (identifier))
+          (identifier)
           (sub_element
             (element
               (qualified_type_name
@@ -119,12 +114,9 @@ Type0 := Base {
         (conditional_element
           (parenthesized_expression
             (conditional_expression
-              (qualified_name
-                (identifier))
-              (qualified_name
-                (identifier))
-              (qualified_name
-                (identifier))))
+              (identifier)
+              (identifier)
+              (identifier)))
           (sub_element
             (element
               (qualified_type_name
@@ -178,13 +170,11 @@ Type0 := Base {
             (identifier))
           binding: (two_way_binding
             name: (identifier)
-            expr: (qualified_name
-              (identifier))))
+            expr: (identifier)))
         (property_declaration
           binding: (two_way_binding
             name: (identifier)
-            expr: (qualified_name
-              (identifier))))
+            expr: (identifier)))
         (property_declaration
           type: (array_type
             (object_type
@@ -224,13 +214,12 @@ Type0 := Base {
         (binding
           name: (identifier)
           expr: (binding_expression
-            (qualified_name
-              (identifier))))
+            (identifier)))
         (two_way_binding
           name: (identifier)
-          expr: (qualified_name
-            (identifier)
-            (identifier)))))))
+          expr: (member_access
+            base: (identifier)
+            id: (identifier)))))))
 
 ================================================================================
 Property animations
@@ -305,16 +294,14 @@ Type0 := Base {
         (states
           (state
             id: (identifier)
-            condition: (qualified_name
-              (identifier))
+            condition: (identifier)
             property_changes: (property_changes
               (qualified_binding
                 name: (qualified_name
                   (identifier)
                   (identifier))
                 expr: (binding_expression
-                  (qualified_name
-                    (identifier))))))
+                  (identifier)))))
           (state
             id: (identifier)
             property_changes: (property_changes
@@ -322,8 +309,7 @@ Type0 := Base {
                 name: (qualified_name
                   (identifier))
                 expr: (binding_expression
-                  (qualified_name
-                    (identifier)))))))))))
+                  (identifier))))))))))
 
 ================================================================================
 Transitions
@@ -424,9 +410,9 @@ Type0 := Base {
         (callback_declaration
           binding: (two_way_binding
             name: (identifier)
-            expr: (qualified_name
-              (identifier)
-              (identifier))))))))
+            expr: (member_access
+              base: (identifier)
+              id: (identifier))))))))
 
 ================================================================================
 Callback connections
