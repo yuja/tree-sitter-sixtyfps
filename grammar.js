@@ -370,6 +370,7 @@ module.exports = grammar({
       $._literal,
       $.parenthesized_expression,
       $.function_call_expression,
+      $.index_expression,
       $.conditional_expression,
       $._identifier,
       $.binary_expression,
@@ -402,6 +403,13 @@ module.exports = grammar({
       '(',
       trailingCommaSep($._expression),
       ')',
+    ),
+
+    index_expression: $ => seq(
+      field('array', $._expression),
+      '[',
+      field('index', $._expression),
+      ']',
     ),
 
     unary_op_expression: $ => prec.right('unary', seq(
