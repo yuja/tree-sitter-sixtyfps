@@ -36,6 +36,18 @@
         "named": true
       },
       {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "index_expression",
+        "named": true
+      },
+      {
+        "type": "member_access",
+        "named": true
+      },
+      {
         "type": "number_literal",
         "named": true
       },
@@ -44,11 +56,19 @@
         "named": true
       },
       {
+        "type": "parent",
+        "named": true
+      },
+      {
         "type": "parenthesized_expression",
         "named": true
       },
       {
-        "type": "qualified_name",
+        "type": "root",
+        "named": true
+      },
+      {
+        "type": "self",
         "named": true
       },
       {
@@ -767,7 +787,23 @@
             "named": true
           },
           {
-            "type": "qualified_name",
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "member_access",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "root",
+            "named": true
+          },
+          {
+            "type": "self",
             "named": true
           }
         ]
@@ -885,6 +921,70 @@
         "types": [
           {
             "type": "string_literal",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "index_expression",
+    "named": true,
+    "fields": {
+      "array": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "index": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "member_access",
+    "named": true,
+    "fields": {
+      "base": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "root",
+            "named": true
+          },
+          {
+            "type": "self",
             "named": true
           }
         ]
