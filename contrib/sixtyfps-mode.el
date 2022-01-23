@@ -159,8 +159,7 @@
    (qualified_type_name
     (identifier) @type)
 
-   (qualified_name
-    (identifier) @type
+   ((identifier) @type
     (.match? @type "^[A-Z]"))  ; assume uppercase names are types
 
    ;(identifier) @variable

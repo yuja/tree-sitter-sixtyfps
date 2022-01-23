@@ -3,7 +3,7 @@
 //   docs/langref.md
 //   sixtyfps_compiler/{lexer.rs,parser.rs,parser/*.rs}
 //                     {expression_tree.rs,object_tree.rs}
-// 75ba29cf2fc593e824718bc2b21036b4ee2430f4
+// 4f5df180b866a239a696c8e4b3e4dac37792cb35
 
 module.exports = grammar({
   name: 'sixtyfps',
@@ -29,6 +29,7 @@ module.exports = grammar({
     $._at_keyword,
     $._type,
     $._literal,
+    $._identifier,
   ],
 
   precedences: $ => [
@@ -362,17 +363,28 @@ module.exports = grammar({
       ';',
     ),
 
+    // $._identifier in place of $.qualified_name: parse_expression_helper() leverages
+    // parse_qualified_name() to consume as many dotted names as possible, but that
+    // would syntactically conflict with $.member_access.
     _expression: $ => choice(
       $._literal,
       $.parenthesized_expression,
       $.function_call_expression,
+      $.index_expression,
       $.conditional_expression,
-      $.qualified_name,
+      $._identifier,
       $.binary_expression,
       $.array,
       $.object_literal,
       $.unary_op_expression,
+      $.member_access,
       $._at_keyword,
+    ),
+
+    member_access: $ => seq(
+      field('base', $._expression),
+      '.',
+      field('id', $._identifier),
     ),
 
     parenthesized_expression: $ => seq(
@@ -391,6 +403,13 @@ module.exports = grammar({
       '(',
       trailingCommaSep($._expression),
       ')',
+    ),
+
+    index_expression: $ => seq(
+      field('array', $._expression),
+      '[',
+      field('index', $._expression),
+      ']',
     ),
 
     unary_op_expression: $ => prec.right('unary', seq(
@@ -475,7 +494,7 @@ module.exports = grammar({
     ),
 
     gradient_stop: $ => seq(
-      field('color', choice($.color_literal, $.qualified_name)),
+      field('color', choice($.color_literal, $._identifier, $.member_access)),
       field('position', $.number_literal),
     ),
 
@@ -576,12 +595,16 @@ module.exports = grammar({
       repeat(/[a-zA-Z0-9_\-]/),
     )),
 
-    // TODO: restrict use of reserved identifiers in type/property position?
-    qualified_name: $ => sep1(choice(
+    _identifier: $ => choice(
       $.self,
       $.parent,
       $.root,
       $.identifier,
+    ),
+
+    // TODO: restrict use of reserved identifiers in type/property position?
+    qualified_name: $ => sep1(choice(
+      $._identifier,
     ), '.'),
   },
 });

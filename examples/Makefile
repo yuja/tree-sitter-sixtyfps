@@ -7,4 +7,4 @@ all: sixtyfps
 sixtyfps:
 	[ -d $@ ] || $(GIT) clone https://github.com/sixtyfpsui/sixtyfps.git $@
 	$(GIT) -C $@ fetch
-	$(GIT) -C $@ reset --hard 75ba29cf2fc593e824718bc2b21036b4ee2430f4
+	$(GIT) -C $@ reset --hard 4f5df180b866a239a696c8e4b3e4dac37792cb35
