@@ -24,4 +24,4 @@ fetch-examples:
 parse-examples:
 	cat examples/known-failures.txt \
 		| sed 's|^|!examples/|' \
-		| xargs $(TREE_SITTER) parse -q 'examples/**/*.60'
+		| xargs $(TREE_SITTER) parse -q 'examples/**/*.slint'

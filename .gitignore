@@ -4,7 +4,7 @@
 
 /Cargo.lock
 /build/
-/examples/sixtyfps
+/examples/slint
 /node_modules/
 /package-lock.json
 /target/

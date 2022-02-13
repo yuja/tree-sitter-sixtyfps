@@ -1,9 +1,9 @@
 // Implemented based on
-// https://github.com/sixtyfpsui/sixtyfps/
+// https://github.com/slint-ui/slint/
 //   docs/langref.md
-//   sixtyfps_compiler/{lexer.rs,parser.rs,parser/*.rs}
+//   internal/compiler/{lexer.rs,parser.rs,parser/*.rs}
 //                     {expression_tree.rs,object_tree.rs}
-// 4f5df180b866a239a696c8e4b3e4dac37792cb35
+// 136f2686b4e33241da8e7ab97bf27712a8d5bf56
 
 module.exports = grammar({
   name: 'sixtyfps',
