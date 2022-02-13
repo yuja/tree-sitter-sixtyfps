@@ -253,6 +253,8 @@
 ;;;###autoload
 (add-to-list 'auto-mode-alist
              '("\\.60\\'" . sixtyfps-mode))
+(add-to-list 'auto-mode-alist
+             '("\\.slint\\'" . sixtyfps-mode))
 
 (provide 'sixtyfps-mode)
 

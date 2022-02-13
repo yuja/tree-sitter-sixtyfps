@@ -28,9 +28,10 @@
   },
   "tree-sitter": [
     {
-      "scope": "source.60",
+      "scope": "source.slint",
       "file-types": [
-        "60"
+        "60",
+        "slint"
       ],
       "highlights": [
         "queries/highlights.scm"
