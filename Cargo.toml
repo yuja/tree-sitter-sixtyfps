@@ -4,7 +4,7 @@ description = "SixtyFPS grammar for the tree-sitter parsing library"
 version = "0.0.0"
 keywords = ["incremental", "parsing", "sixtyfps"]
 categories = ["parsing", "text-editors"]
-repository = "https://github.com/tree-sitter/tree-sitter-sixtyfps"
+repository = "https://github.com/yuja/tree-sitter-sixtyfps"
 edition = "2018"
 license = "MIT"
 
